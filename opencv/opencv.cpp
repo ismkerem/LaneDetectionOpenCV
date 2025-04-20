@@ -10,7 +10,7 @@ using namespace cv;
 extern "C" {
 
 JNIEXPORT jbyteArray JNICALL
-Java_com_example_lanedetectionopencv_MainActivity_detectLanes(JNIEnv *env, jobject thiz,
+Java_com_example_lanedetectionopencv_MainActivity_00024Companion_detectLanes(JNIEnv *env, jobject thiz,
                                                               jbyteArray imageData, jint width, jint height) {
     jbyte *dataPtr = env->GetByteArrayElements(imageData, nullptr);
     if (dataPtr == nullptr) {
