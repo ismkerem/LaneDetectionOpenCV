@@ -71,6 +71,50 @@ Java_com_example_lanedetectionopencv_MainActivity_00024Companion_detectLanes(JNI
                  Scalar(0, 255, 0, 255), 4);  // Çizgiyi yeşil renk ile çiz
         }
     }
+    std::vector<Point> leftPoints;
+    std::vector<Point> rightPoints;
+
+    for (const auto &l : lines) {
+        double length = sqrt(pow(l[2] - l[0], 2) + pow(l[3] - l[1], 2));
+        if (length < 50) continue;
+
+        double angle = atan2(l[3] - l[1], l[2] - l[0]) * 180.0 / CV_PI;
+        angle = fabs(angle);
+
+        if (angle > 30 && angle < 60) {
+            Point pt1(l[0], l[1] + newHeight / 2);
+            Point pt2(l[2], l[3] + newHeight / 2);
+
+            // Sol mu sağ mı?
+            if (pt1.x < newWidth / 2 && pt2.x < newWidth / 2) {
+                leftPoints.push_back(pt1);
+                leftPoints.push_back(pt2);
+            } else if (pt1.x > newWidth / 2 && pt2.x > newWidth / 2) {
+                rightPoints.push_back(pt1);
+                rightPoints.push_back(pt2);
+            }
+
+            line(result, pt1, pt2, Scalar(0, 255, 0, 255), 4); // yeşil çizgi
+        }
+    }
+
+// Eğer her iki tarafta da çizgiler varsa mavi alan çiz
+    if (!leftPoints.empty() && !rightPoints.empty()) {
+        // En alt ve en üst noktaları bul
+        auto cmpY = [](const Point &a, const Point &b) { return a.y < b.y; };
+        Point leftTop = *std::min_element(leftPoints.begin(), leftPoints.end(), cmpY);
+        Point leftBottom = *std::max_element(leftPoints.begin(), leftPoints.end(), cmpY);
+        Point rightTop = *std::min_element(rightPoints.begin(), rightPoints.end(), cmpY);
+        Point rightBottom = *std::max_element(rightPoints.begin(), rightPoints.end(), cmpY);
+
+        // Alanı doldur
+        std::vector<Point> fillPolyPoints = {
+                leftTop, rightTop, rightBottom, leftBottom
+        };
+
+        fillConvexPoly(result, fillPolyPoints, Scalar(255, 0, 0, 100)); // mavi (alpha: 100)
+    }
+
 
     // Sonuç görüntüsünü PNG formatında encode et
     std::vector<uchar> buffer;
