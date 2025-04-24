@@ -6,6 +6,12 @@ pipeline {
     }
 
     stages {
+		stage('Flutter Safe Directory Fix') {
+			steps {
+				sh 'git config --global --add safe.directory /opt/flutter'
+    }
+}
+
 		stage('Checkout') {
 			steps {
 				echo 'Kod repodan çekiliyor...'
