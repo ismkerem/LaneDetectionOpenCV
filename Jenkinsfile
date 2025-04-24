@@ -1,9 +1,7 @@
 pipeline {
 	agent any
 
-    environment {
-
-    }
+   
 
     stages {
 		stage('Flutter Safe Directory Fix') {
