@@ -4,12 +4,20 @@ pipeline {
    
 
     stages {
+
+
+	    
 		stage('Checkout') {
 			steps {
 				echo 'Kod repodan çekiliyor...'
                 checkout scm
             }
         }
+	    	stage('Flutter Safe Directory Fix') {
+			steps {
+				sh 'git config --global --add safe.directory /opt/flutter'
+    }
+}
 
         stage('Flutter Sürümü Kontrol') {
 			steps {
