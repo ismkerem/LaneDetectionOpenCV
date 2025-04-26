@@ -35,11 +35,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text("Lane Detection2")),
-        body: Center(
-          child: laneImage != null
-              ? Image.memory(laneImage!)
-              : Text("Kamera başlatılıyor..."),
-        ),
+
       ),
     );
   }

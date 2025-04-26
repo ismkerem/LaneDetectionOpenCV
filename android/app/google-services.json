@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "365960050613",
+    "project_id": "bitirme-8a1e1",
+    "storage_bucket": "bitirme-8a1e1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365960050613:android:5cbf7ce938a79c6b554bfc",
+        "android_client_info": {
+          "package_name": "com.example.lanedetectionopencv"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD27KuAkYI-Ousu5z4oXIuUZo9z2C5BnWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
