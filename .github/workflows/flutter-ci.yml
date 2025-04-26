@@ -30,10 +30,10 @@ jobs:
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload to Firebase App Distribution
+      - name: Upload to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           appId: ${{ secrets.FIREBASE_APP_ID }}
-          token: ${{ secrets.FIREBASE_AUTH_TOKEN }}
-          groups: testers
+          groups: "your_testers_group"
           file: build/app/outputs/flutter-apk/app-release.apk
