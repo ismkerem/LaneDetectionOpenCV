@@ -1,19 +1,21 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
-    id("dev.flutter.flutter-gradle-plugin")
+    // Flutter plugin kaldırıldı
     id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.example.lanedetectionopencv"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35 // Flutter değişkeni yerine direkt değer
     ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        viewBinding = true
     }
 
     kotlinOptions {
@@ -21,14 +23,12 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.lanedetectionopencv"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = "1.0.1"
+        // Flutter referansları kaldırıldı
+        minSdk = 21 // Direkt değer
+        targetSdk = 35 // Direkt değer
+        versionCode = 1 // Direkt değer
+        versionName = "1.1.0"
 
         externalNativeBuild {
             cmake {
@@ -40,18 +40,19 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            // İmzalama yapılandırması
             signingConfig = signingConfigs.getByName("debug")
         }
+
     }
+
     externalNativeBuild {
         cmake {
             path = file("../CMakeLists.txt")
         }
     }
-
 }
+
 dependencies {
     implementation("androidx.core:core-ktx:1.16.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
@@ -64,10 +65,20 @@ dependencies {
     implementation("androidx.camera:camera-extensions:1.4.2")
     implementation("com.google.mlkit:face-mesh-detection:16.0.0-beta1")
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    val cameraxVersion = "1.4.2"
+    implementation("androidx.camera:camera-camera2:${cameraxVersion}")
+    implementation("androidx.camera:camera-lifecycle:${cameraxVersion}")
+    implementation("androidx.camera:camera-view:${cameraxVersion}")
+
+    implementation("org.tensorflow:tensorflow-lite:2.14.0")
+    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
 }
 
-flutter {
-    source = "../.."
-
-}
